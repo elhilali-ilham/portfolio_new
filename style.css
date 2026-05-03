@@ -1,0 +1,805 @@
+/* ============================================================
+   STYLE.CSS — Portfolio de Sarah Bennett
+   Structure :
+   1. Variables & Reset
+   2. Utilitaires généraux
+   3. Navigation
+   4. Section Accueil (Hero)
+   5. Section À propos
+   6. Section Compétences
+   7. Section Projets
+   8. Section Expérience
+   9. Section Contact
+   10. Footer
+   11. Responsive (tablette & mobile)
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIABLES CSS & RESET DE BASE
+   ============================================================ */
+
+/* Variables de couleurs et typographie — modifiables en un seul endroit */
+:root {
+  --color-dark:    #1a2744;   /* Bleu foncé principal */
+  --color-mid:     #243558;   /* Bleu moyen (accents) */
+  --color-accent:  #4a7fe5;   /* Bleu vif (boutons, liens actifs) */
+  --color-white:   #ffffff;
+  --color-light:   #f4f6fb;   /* Gris très clair (fond de sections alternées) */
+  --color-gray:    #8896ab;   /* Gris texte secondaire */
+  --color-text:    #2d3a52;   /* Couleur principale du texte */
+
+  --font-main: 'Poppins', sans-serif;
+
+  --radius:   10px;           /* Arrondi des cartes */
+  --shadow:   0 4px 24px rgba(26, 39, 68, 0.10);  /* Ombre douce */
+  --transition: 0.28s ease;   /* Durée des transitions hover */
+}
+
+/* Reset minimaliste : supprime marges/paddings par défaut */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style de base du corps de page */
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background-color: var(--color-white);
+  line-height: 1.7;
+  font-size: 1rem;
+  /* Défilement fluide pour les ancres */
+  scroll-behavior: smooth;
+}
+
+/* Liens : sans soulignement par défaut */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Images : toujours contenues dans leur parent */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Listes : sans puces */
+ul { list-style: none; }
+
+
+/* ============================================================
+   2. UTILITAIRES GÉNÉRAUX
+   ============================================================ */
+
+/* Conteneur centré avec largeur maximale */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* Classe de section : espacement vertical uniforme */
+.section {
+  padding: 90px 0;
+}
+
+/* Fond gris clair pour les sections alternées */
+.bg-light { background-color: var(--color-light); }
+
+/* Fond sombre pour la section contact */
+.bg-dark { background-color: var(--color-dark); }
+
+/* Titre principal de section */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+
+/* Sous-titre de section */
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--color-gray);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+/* Variante claire (texte blanc) pour fond sombre */
+.section-title.light  { color: var(--color-white); }
+.section-subtitle.light { color: #a0b4d0; }
+
+/* ---- BOUTONS ---- */
+
+/* Bouton de base */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.8rem;
+  border-radius: 50px;        /* Bouton arrondi "pill" */
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color var(--transition),
+              color var(--transition),
+              transform var(--transition),
+              box-shadow var(--transition);
+  letter-spacing: 0.02em;
+}
+
+/* Bouton principal : fond bleu */
+.btn-primary {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border: 2px solid var(--color-accent);
+}
+
+.btn-primary:hover {
+  background-color: #3567cc;
+  border-color: #3567cc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 127, 229, 0.35);
+}
+
+/* Bouton contour : fond transparent */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-dark);
+  border: 2px solid var(--color-dark);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+
+/* ============================================================
+   3. NAVIGATION
+   ============================================================ */
+
+.navbar {
+  position: fixed;           /* Reste visible au défilement */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 16px rgba(26, 39, 68, 0.08);
+  padding: 1rem 0;
+}
+
+/* Disposition intérieure : logo à gauche, liens à droite */
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo / Nom dans la nav */
+.nav-logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-dark);
+  letter-spacing: -0.02em;
+}
+
+/* Le point coloré après le nom */
+.nav-logo span {
+  color: var(--color-accent);
+}
+
+/* Liste des liens de navigation */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Lien de navigation individuel */
+.nav-links a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-gray);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+/* Trait animé sous le lien au survol */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--color-dark);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+
+/* ============================================================
+   4. SECTION ACCUEIL (HERO)
+   ============================================================ */
+
+.hero {
+  /* Compense la hauteur de la navbar fixe */
+  padding-top: 120px;
+  padding-bottom: 90px;
+  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-mid) 100%);
+}
+
+/* Mise en page : texte à gauche, photo à droite */
+.hero-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}
+
+/* Colonne gauche (texte) */
+.hero-text {
+  flex: 1;
+}
+
+/* "Bonjour, je suis" */
+.hero-subtitle {
+  font-size: 1rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* Nom principal */
+.hero-name {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--color-white);
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+}
+
+/* Titre du métier */
+.hero-job {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #a0b4d0;
+  margin-bottom: 1.2rem;
+}
+
+/* Description courte */
+.hero-desc {
+  color: #c0d0e8;
+  max-width: 480px;
+  margin-bottom: 2rem;
+  font-size: 0.97rem;
+}
+
+/* Conteneur des deux boutons CV */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Bouton "Voir le CV" : variante blanche sur fond sombre */
+.hero-buttons .btn-outline {
+  color: var(--color-white);
+  border-color: rgba(255,255,255,0.5);
+}
+
+.hero-buttons .btn-outline:hover {
+  background-color: var(--color-white);
+  color: var(--color-dark);
+}
+
+/* Colonne droite (photo) */
+.hero-photo {
+  flex-shrink: 0;
+}
+
+/* Cadre de la photo de profil */
+.hero-photo img {
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;                    /* Forme ronde */
+  object-fit: cover;
+  border: 5px solid rgba(255,255,255,0.15);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+
+
+/* ============================================================
+   5. SECTION À PROPOS
+   ============================================================ */
+
+/* Deux colonnes côte à côte */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* Texte biographique */
+.about-text p {
+  margin-bottom: 1rem;
+  color: var(--color-text);
+  font-size: 0.97rem;
+}
+
+/* Liste d'informations rapides */
+.info-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 0.92rem;
+}
+
+/* Label en gras dans la liste */
+.info-label {
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+
+/* ============================================================
+   6. SECTION COMPÉTENCES
+   ============================================================ */
+
+/* Grille de 3 cartes par ligne */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Carte de compétence individuelle */
+.skill-card {
+  background-color: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+/* Effet au survol : la carte remonte légèrement */
+.skill-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+/* Icône de la compétence */
+.skill-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Nom de la technologie */
+.skill-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 0.4rem;
+}
+
+/* Description courte de la compétence */
+.skill-card p {
+  font-size: 0.85rem;
+  color: var(--color-gray);
+}
+
+
+/* ============================================================
+   7. SECTION PROJETS
+   ============================================================ */
+
+/* Grille de x cartes projets */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.8rem;
+}
+
+/* Carte projet */
+.project-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius);
+  overflow: hidden;             /* Cache les coins arrondis sur l'image */
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 36px rgba(26, 39, 68, 0.16);
+}
+
+/* Image du projet */
+.project-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+/* Zone texte de la carte projet */
+.project-content {
+  padding: 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.project-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+.project-desc {
+  font-size: 0.875rem;
+  color: var(--color-gray);
+  flex: 1;                      /* Pousse le bouton vers le bas */
+}
+
+/* Conteneur des tags technologies */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Tag individuel */
+.tag {
+  background-color: var(--color-light);
+  color: var(--color-accent);
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   8. SECTION EXPÉRIENCE
+   ============================================================ */
+
+/* Conteneur de la ligne de temps */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding-left: 2rem;
+}
+
+/* Ligne verticale centrale */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background-color: #dbe4f0;
+}
+
+/* Élément de la ligne de temps */
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+}
+
+/* Point coloré sur la ligne */
+.timeline-dot {
+  position: absolute;
+  left: -26px;
+  top: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  border: 3px solid var(--color-white);
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+/* Carte d'expérience */
+.timeline-card {
+  background-color: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition);
+}
+
+.timeline-card:hover {
+  transform: translateX(4px);
+}
+
+/* En-tête de la carte : titre + date */
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.timeline-header h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-dark);
+}
+
+/* Badge date */
+.timeline-date {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-accent);
+  background-color: #eef3fd;
+  padding: 0.2rem 0.75rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* Nom de l'entreprise */
+.timeline-company {
+  font-size: 0.88rem;
+  color: var(--color-gray);
+  font-style: italic;
+  margin-bottom: 0.6rem;
+}
+
+/* Description de l'expérience */
+.timeline-desc {
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+
+/* ============================================================
+   9. SECTION CERTIFICATS
+   ============================================================ */
+
+/* Grille de 2 cartes par ligne */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Carte certificat */
+.cert-card {
+  background-color: var(--color-white);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 1.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.cert-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(26, 39, 68, 0.14);
+}
+
+/* Icône à gauche */
+.cert-icon {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+/* Zone texte centrale */
+.cert-body {
+  flex: 1;
+}
+
+/* Titre du certificat */
+.cert-title {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-dark);
+  margin-bottom: 0.25rem;
+  line-height: 1.35;
+}
+
+/* Émetteur du certificat */
+.cert-issuer {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+/* Année */
+.cert-date {
+  font-size: 0.8rem;
+  color: var(--color-gray);
+  margin-top: 0.15rem;
+}
+
+/* Bouton "Voir le certificat" */
+.cert-btn {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  padding: 0.55rem 1.1rem;
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   10. SECTION CONTACT
+   ============================================================ */
+
+/* Grille 2 colonnes pour les cartes de contact */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Carte de contact individuelle */
+.contact-card {
+  background-color: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: background-color var(--transition), transform var(--transition);
+}
+
+.contact-card:hover {
+  background-color: rgba(255,255,255,0.10);
+  transform: translateY(-4px);
+}
+
+/* Icône du moyen de contact */
+.contact-icon {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* Titre de la carte (Email, Téléphone…) */
+.contact-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+/* Lien de contact */
+.contact-card a {
+  font-size: 0.88rem;
+  color: #a0b4d0;
+  transition: color var(--transition);
+  word-break: break-all;
+}
+
+.contact-card a:hover {
+  color: var(--color-white);
+}
+
+
+/* ============================================================
+   10. FOOTER
+   ============================================================ */
+
+.footer {
+  background-color: #111d33;
+  padding: 1.8rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.footer p {
+  font-size: 0.85rem;
+  color: #5a7092;
+}
+
+.footer-made {
+  color: #4a5e7a;
+}
+
+
+/* ============================================================
+   11. RESPONSIVE — TABLETTE (≤ 900px) ET MOBILE (≤ 600px)
+   ============================================================ */
+
+/* ---- Tablette ---- */
+@media (max-width: 900px) {
+
+  /* Réduit la taille du nom dans le hero */
+  .hero-name { font-size: 2.2rem; }
+
+  /* Place le hero en colonne : texte puis photo */
+  .hero-inner {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  .hero-desc { margin: 0 auto 2rem; }
+
+  .hero-buttons { justify-content: center; }
+
+  /* Photo un peu plus petite */
+  .hero-photo img {
+    width: 210px;
+    height: 210px;
+  }
+
+  /* À propos : une seule colonne */
+  .about-grid { grid-template-columns: 1fr; }
+
+  /* Compétences et projets : 2 colonnes */
+  .skills-grid   { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Certificats : 1 colonne */
+  .certs-grid { grid-template-columns: 1fr; }
+
+  /* Contact : 1 colonne */
+  .contact-grid { grid-template-columns: 1fr; }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 600px) {
+
+  /* Cache les liens nav sur mobile (menu hamburger non inclus : version simple) */
+  .nav-links { display: none; }
+
+  .hero-name { font-size: 1.8rem; }
+  .hero-job  { font-size: 1rem; }
+
+  /* Toutes les grilles passent en 1 colonne */
+  .skills-grid   { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-grid  { grid-template-columns: 1fr; }
+  .certs-grid    { grid-template-columns: 1fr; }
+
+  /* Certificat : empilé verticalement sur mobile */
+  .cert-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Titre de section plus petit */
+  .section-title { font-size: 1.6rem; }
+
+  /* Footer en colonne */
+  .footer-inner { flex-direction: column; text-align: center; }
+
+  /* Boutons l'un en dessous de l'autre */
+  .hero-buttons { flex-direction: column; align-items: center; }
+}
